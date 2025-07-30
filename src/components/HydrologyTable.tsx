@@ -8,53 +8,52 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import DataHour from '../interface/DataHour';
+import { DataHour } from '../interface/DataHour';
 
 export default function HydrologyTable( { data } : { data: DataHour[] } ) {
 
-  let [rows, setRows] = useState(Array<DataHour>)
+  let [rows, setRows] = useState<DataHour[]>([]);
 
   let getRows = () => {
     if (rows.length) {
-      return (
-        rows.map((row, idx) => (
-          <TableRow
-            key={idx}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              {row.Fecha}
-            </TableCell>
-            <TableCell align="center">{row.Mazar}</TableCell>
-            
-            {/* PENDIENTE: Valores a renderizar en cada celda  */}
-            
-            
-          </TableRow>
-        ))
-      )
-    } else {
-      return <TableRow><TableCell>No data</TableCell></TableRow>
-    }
-      
-  }
+      return rows.map((row, idx) => (
+        <TableRow
+          key={idx}
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        >
+                      {/* PENDIENTE: Valores a renderizar en cada celda  */}
 
-  useEffect( ()=> {
-    setRows(data)
-  }, [data])
-  
+          <TableCell component="th" scope="row">
+            {row.Fecha}
+          </TableCell>
+          <TableCell align="center">{row.Mazar}</TableCell>
+          <TableCell align="center">{row.Molino}</TableCell>
+          <TableCell align="center">{row.Sopladora}</TableCell>
+        </TableRow>
+      ));
+    } else {
+      return (
+        <TableRow>
+          <TableCell colSpan={4}>No data</TableCell>
+        </TableRow>
+      );
+    }
+  };
+  useEffect(() => {
+    setRows(data);
+  }, [data]);
 
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
+
+            {/* PENDIENTE: Cabeceras de las columnas  */}
             <TableCell>Fecha</TableCell>
             <TableCell align='center'>Mazar</TableCell>
-            
-            {/* PENDIENTE: Cabeceras de las columnas  */}
-            
-
+            <TableCell align='center'>Molino</TableCell>
+            <TableCell align='center'>Sopladora</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
